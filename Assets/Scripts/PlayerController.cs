@@ -8,16 +8,21 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	public Text countText;
 	public Text winText;
+	public Text timeText;
 
 	private Rigidbody rb;
 	private int count;
+	private int numberPickUps;
+	private float startTime;
 
 	void Start ()
 	{
 		rb = GetComponent<Rigidbody> ();
 		count = 0;
+		numberPickUps = GetNumberOfPickUps ();
 		SetCountText ();
 		winText.text = "";
+		startTime = Time.time;
 	}
 
 	void FixedUpdate ()
@@ -45,11 +50,24 @@ public class PlayerController : MonoBehaviour {
 	void SetCountText()
 	{
 		countText.text = "Count: " + count.ToString ();
-		if (count >= 12) 
+		if (count >= numberPickUps) 
 		{
 			winText.text = "You Win!";
+			SetTimeText ();
 		}
 	}
 
+	int GetNumberOfPickUps()
+	{
+		int num = 0;
+		num = GameObject.FindGameObjectsWithTag ("Pick Up").Length;
+		return num;
+	}
+
+	void SetTimeText()
+	{
+		float guiTime = Time.time - startTime;
+		timeText.text = "Completed in " + guiTime.ToString () + " seconds";
+	}
 
 }
