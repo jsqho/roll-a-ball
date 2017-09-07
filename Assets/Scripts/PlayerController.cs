@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour {
 	private int count;
 	private int numberPickUps;
 	private float startTime;
+	private GameObject btn;
+	private Button target;
 
 	void Start ()
 	{
@@ -23,6 +25,10 @@ public class PlayerController : MonoBehaviour {
 		SetCountText ();
 		winText.text = "";
 		startTime = Time.time;
+
+		btn = GameObject.FindGameObjectWithTag ("Next Level Button");
+		target = btn.GetComponent<Button> ();
+		target.interactable = false;
 	}
 
 	void FixedUpdate ()
@@ -69,5 +75,5 @@ public class PlayerController : MonoBehaviour {
 		float guiTime = Time.time - startTime;
 		timeText.text = "Completed in " + guiTime.ToString () + " seconds";
 	}
-
+		
 }
